@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="https://github.com/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <title>Estimate Hours with Fibonacci</title>
+
+    <meta name="description" content="Estimate Hours with Fibonacci">
+    <meta name="theme-color" content="#2F4550">
+    <style>
+      @import url('/css/reset.css');
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,500;1,900&display=swap');
+      html, body {
+        font-size: 10px;
+        line-height: 1.5px;
+        font-family: 'Roboto', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background-color: #2F4550;
+      }
+      .main {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+      }
+      .container {
+        padding: 1.5rem;
+      }
+      h1 {
+        color: #E6AA68;
+        font-size: 2rem;
+        font-weight: bold;
+        line-height: 2rem;
+      }
+      label {
+        color: #E6AA68;
+        font-size: 1.8rem;
+      }
+      .input {
+        font-size: 1.4rem;
+        margin-right: 0.5rem;
+        border: 0.1rem solid #E6AA68;
+        background-color: transparent;
+        color: #E6AA68;
+        padding: 1rem;
+      }
+      .center {
+        text-align: center;
+      }
+      .title {
+        margin-bottom: 3rem;
+      }
+      .hours {
+        font-weight: bold;
+        font-size: 3rem;
+        line-height: 3.5rem;
+      }
+      .estimate {
+        margin-top: 3rem;
+        font-size: 2rem;
+        line-height: 2.5rem;
+        color: #FFFBBD;
+      }
+      .subhours {
+        font-size: 1.8rem;
+        line-height: 2rem;
+        font-weight: 300;
+        margin-left: 0.2rem;
+      }
+      #msg {
+        display: none;
+      }
+      .logo-container {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .logo {
+        width: 15rem;
+        height: auto;
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="container">
+        <div class="logo-container"><img class="logo" src="./fibo.png" alt="fibo logo" /></div>
+        <div class="title center"><h1>Estimate hours with fibonacci!</h1></div>
+        <div class="center">
+          <label for="hours">
+            <input class="input" type="number" id="hours" name="hours" min="0" max="100" value="0" />
+            hours
+          </label>
+        </div>
+        <div id="msg" class="center estimate">You should estimate <span id="hoursmsg" class="hours">23</span><span class="subhours">h</span></div>
+      </div>
+    </div>
+  </body>
+  <script>
+  const estimateHoursWithFibonacci = (hours) => {
+    if (!hours || hours < 2) return 2;
+    let a = 0;
+    let b = 1;
+    for (let i = 0; i < 20; i++) {
+      [a, b] = [b, a + b];
+      if (b >= hours) {
+        return b;
+      }
+    }
+    if (hours > b) return hours;
+    return b;
+  }
+
+  const hoursInput = document.getElementById('hours');
+  const hoursMsg = document.getElementById('hoursmsg');
+  const msg = document.getElementById('msg');
+  hoursInput.addEventListener('change', (e) => {
+    const hours = e.target.value;
+    const fibonacciHours = estimateHoursWithFibonacci(hours);
+    hoursMsg.innerHTML = fibonacciHours;
+    msg.style.display = 'block';
+  });
+  </script>
+</html>
